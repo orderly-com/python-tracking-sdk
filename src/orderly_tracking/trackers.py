@@ -29,5 +29,6 @@ class Tracker:
             'did': did,
             'vp': view_port_size
         }
-
+        await self.producer.start()
         await self.producer.send(settings.KAFKA_TOPIC, json.dumps(payload), partition=0)
+        await self.producer.stop()
