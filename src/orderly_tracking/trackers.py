@@ -3,7 +3,7 @@ import json
 from typing import Optional
 from aiokafka import AIOKafkaProducer
 
-import settings
+from . import settings
 
 class Tracker:
     def __init__(self, **producer_params):
