@@ -13,7 +13,7 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
 
-    install_requires=['setuptools', 'six'],
+    install_requires=['setuptools', 'aiokafka'],
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
