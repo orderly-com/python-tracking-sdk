@@ -1,4 +1,6 @@
 [build-system]
 requires = [
+    "setuptools>=42",
+    "wheel",
     "aiokafka>=0.7.2",
 ]
