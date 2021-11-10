@@ -30,4 +30,4 @@ class Tracker:
             'vp': view_port_size
         }
 
-        self.producer.send(settings.KAFKA_TOPIC, json.dump(payload), partition=0)
+        self.producer.send(settings.KAFKA_TOPIC, json.dumps(payload), partition=0)
