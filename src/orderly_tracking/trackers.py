@@ -12,7 +12,7 @@ class Tracker:
     def connect_target(self):
         pass
 
-    def record_event(self, msg: str, place: str, pt: str, title: str,
+    async def record_event(self, msg: str, place: str, pt: str, title: str,
         language: str='zh-tw', cid: Optional[str]=None, decode_format: str='UTF-8',
         sd: str='24-bit', sr: str='1920x1080', did: str='tl', view_port_size: str='1905x887'):
 
@@ -30,4 +30,4 @@ class Tracker:
             'vp': view_port_size
         }
 
-        self.producer.send(settings.KAFKA_TOPIC, json.dumps(payload), partition=0)
+        await self.producer.send(settings.KAFKA_TOPIC, json.dumps(payload), partition=0)
