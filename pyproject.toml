@@ -1,0 +1,4 @@
+[build-system]
+requires = [
+    "aiokafka>=0.7.2",
+]
