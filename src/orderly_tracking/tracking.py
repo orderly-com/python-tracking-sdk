@@ -3,7 +3,8 @@ from typing import Optional
 
 
 class Tracker:
-    def __init__(self, relay_url, cerem_url) -> None:
+    def __init__(self, team_code, relay_url, cerem_url) -> None:
+        self.team_code = team_code
         self.relay_url = relay_url
         self.cerem_url = cerem_url
 
@@ -39,6 +40,7 @@ class Tracker:
                 return
 
         payload = {
+            'team_code': self.team_code,
             'v': version,
             'cid': cid,
             'tg': target,
