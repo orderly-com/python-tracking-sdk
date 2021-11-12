@@ -1,38 +1,56 @@
 import requests
-import uuid
 from typing import Optional
-from . import settings
 
-ACTION_VIEW = 'view'
-ACTION_CLICK = 'click'
 
-AVALIBLE_ACTIONS = [ACTION_VIEW, ACTION_CLICK]
+class Tracker:
+    def __init__(self, relay_url, cerem_url) -> None:
+        self.relay_url = relay_url
+        self.cerem_url = cerem_url
 
-class ActionTypeNotAllowed(Exception):
-    pass
+    def click_event(self, version: str, url: str, title: str, target: str,
+            language: str='zh-tw', cid: Optional[str]=None, decode_format: str='',
+            sd: str='', sr: str='', did: str='', view_port_size: str=''
+    ):
+        self._record_event(
+            version=version, action='click', url=url, title=title, target=target,
+            language=language, cid=cid, decode_format=decode_format,sd=sd,
+            sr=sr, did=did, view_port_size=view_port_size
+        )
 
-def record_event(version: str, action: str, url: str, title: str,
-    language: str='zh-tw', cid: Optional[str]=None, decode_format: str='UTF-8',
-    sd: str='24-bit', sr: str='1920x1080', did: str='tl', view_port_size: str='1905x887'):
+    def view_event(self, version: str, url: str, title: str, target: str,
+            language: str='zh-tw', cid: Optional[str]=None, decode_format: str='',
+            sd: str='', sr: str='', did: str='', view_port_size: str=''
+    ):
+        self._record_event(
+            version=version, action='view', url=url, title=title, target=target,
+            language=language, cid=cid, decode_format=decode_format,sd=sd,
+            sr=sr, did=did, view_port_size=view_port_size
+        )
 
-    if action not in AVALIBLE_ACTIONS:
-        raise ActionTypeNotAllowed(f'{action} is not a valid action type, use tracking.ACTION_VIEW instead. Check tracking.AVALIBLE_ACTIONS for choices')
+    def _record_event(self, version: str, action: str, url: str, title: str, target: str,
+        language: str='zh-tw', cid: Optional[str]=None, decode_format: str='',
+        sd: str='', sr: str='', did: str='', view_port_size: str=''):
 
-    if cid is None:
-        cid = uuid.uuid4().hex[:16].lower()
+        if cid is None:
+            try:
+                response = requests.get(self.cerem_url + '/tracking/generate-cid/')
+                cid = response.json()['cid']
+            except Exception:
+                return
 
-    payload = {
-        'v': version,
-        'cid': cid,
-        'de': decode_format,
-        'at': action,
-        'ul': language,
-        'pt': url,
-        'sd': sd,
-        'sr': sr,
-        'tl': title,
-        'did': did,
-        'vp': view_port_size
-    }
-    requests.get(settings.RELAY_URL+'/api/1/1', params=payload)
-    return cid
+        payload = {
+            'v': version,
+            'cid': cid,
+            'tg': target,
+            'de': decode_format,
+            'at': action,
+            'ul': language,
+            'pt': url,
+            'sd': sd,
+            'sr': sr,
+            'tl': title,
+            'did': did,
+            'vp': view_port_size
+        }
+        requests.get(self.relay_url + '/api/1/1', params=payload)
+        return cid
