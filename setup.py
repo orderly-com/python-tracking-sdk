@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='python-tracking-sdk',
-    version='1.0.0',
+    version='1.0.1',
     url='https://github.com/orderly-com/python-tracking-sdk',
     license='BSD',
     description='A sdk for python to store tracking data in orderly cdp.',

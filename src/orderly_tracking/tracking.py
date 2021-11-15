@@ -35,7 +35,7 @@ class Tracker:
 
         if cid is None:
             try:
-                response = requests.get(self.cerem_url + '/tracking/generate-cid/')
+                response = requests.get(self.cerem_url + '/tracking/generate-cid/', params={'team_code': self.team_code})
                 cid = response.json()['cid']
             except Exception:
                 return
