@@ -67,7 +67,7 @@ class Tracker:
                 raise IntegrationError('Team code is invalid')
 
             elif response.status_code != 200:
-                raise IntegrationError('Cannot get cid from Cerem, got response:', response.text)
+                raise InternalConnectionError('Cannot get cid from Cerem, got response:', response.text)
 
         cid = response.json()['cid']
 
