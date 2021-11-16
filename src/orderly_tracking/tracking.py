@@ -13,7 +13,7 @@ class Tracker:
                     language: str = 'zh-tw', cid: Optional[str] = None, decode_format: str = '',
                     sd: str = '', sr: str = '', did: str = '', view_port_size: str = '', *args, **kwargs
                     ):
-        self._record_event(
+        return self._record_event(
             version=version, action='click', url=url, title=title, target=target,
             language=language, cid=cid, decode_format=decode_format, sd=sd,
             sr=sr, did=did, view_port_size=view_port_size
@@ -23,7 +23,7 @@ class Tracker:
                    language: str = 'zh-tw', cid: Optional[str] = None, decode_format: str = '',
                    sd: str = '', sr: str = '', did: str = '', view_port_size: str = '', *args, **kwargs
                    ):
-        self._record_event(
+        return self._record_event(
             version=version, action='view', url=url, title=title, target=target,
             language=language, cid=cid, decode_format=decode_format, sd=sd,
             sr=sr, did=did, view_port_size=view_port_size
