@@ -87,7 +87,7 @@ class Tracker:
             'vp': view_port_size
         }
         try:
-            requests.get(self.relay_url + '/api/'+ self.ds_id +'/tracking/', params=payload, timeout=self.timeout)
+            response = requests.get(self.relay_url + '/api/'+ self.ds_id +'/tracking/', params=payload, timeout=self.timeout)
         except Exception as e:
             raise InternalConnectionError('Cannot connect to Relay:', e)
 
