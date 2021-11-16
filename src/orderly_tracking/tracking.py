@@ -3,7 +3,7 @@ from typing import Optional
 
 
 class Tracker:
-    def __init__(self, team_code, ds_id, relay_url, cerem_url) -> None:
+    def __init__(self, team_code, ds_id, relay_url, cerem_url, *args, **kwargs) -> None:
         self.team_code = team_code
         self.ds_id = ds_id
         self.relay_url = relay_url
@@ -11,7 +11,7 @@ class Tracker:
 
     def click_event(self, version: str, url: str, title: str, target: str,
                     language: str = 'zh-tw', cid: Optional[str] = None, decode_format: str = '',
-                    sd: str = '', sr: str = '', did: str = '', view_port_size: str = ''
+                    sd: str = '', sr: str = '', did: str = '', view_port_size: str = '', *args, **kwargs
                     ):
         self._record_event(
             version=version, action='click', url=url, title=title, target=target,
@@ -21,7 +21,7 @@ class Tracker:
 
     def view_event(self, version: str, url: str, title: str, target: str,
                    language: str = 'zh-tw', cid: Optional[str] = None, decode_format: str = '',
-                   sd: str = '', sr: str = '', did: str = '', view_port_size: str = ''
+                   sd: str = '', sr: str = '', did: str = '', view_port_size: str = '', *args, **kwargs
                    ):
         self._record_event(
             version=version, action='view', url=url, title=title, target=target,
